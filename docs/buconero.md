@@ -339,3 +339,5 @@ Detto questo, il discorso può fermarsi qui come **prima chiusura concettuale**:
 
 Se si riuscisse a oltreppasare l orrizonte degli eventi 
 
+Ettorebevilacqua
+[sapriqbit@gmail.com ](mailto:sapriqbit@gmail.com )
