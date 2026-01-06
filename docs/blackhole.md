@@ -334,3 +334,6 @@ If we were able to cross the event horizon and enter a black hole, would we find
 That said, the discussion can stop here as a **first conceptual closure**: what follows is no longer a demonstration, but a series of considerations on what a black hole actually becomes if one takes relativity and the principle of matter coherence seriously to the very end.
 
 If one managed to go beyond the event horizon
+
+Ettorebevilacqua
+[sapriqbit@gmail.com ](mailto:sapriqbit@gmail.com )
