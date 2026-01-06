@@ -1,3 +1,8 @@
+---
+title: Cosmo
+permalink: /
+---
+
 # Trattato sul Viaggio nel Buco Nero
 
 ## Parte 1: Introduzione alla Narrazione
