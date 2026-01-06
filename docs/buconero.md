@@ -1,6 +1,6 @@
 ---
-title: Cosmo
-permalink: /
+title: Buconero
+permalink: /buconero/
 ---
 
 # Trattato sul Viaggio nel Buco Nero
