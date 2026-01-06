@@ -1,5 +1,5 @@
 ---
-title: Black Hole
+title: "Black Hole"
 permalink: /blackhole/
 ---
 
