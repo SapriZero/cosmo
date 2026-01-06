@@ -335,5 +335,5 @@ That said, the discussion can stop here as a **first conceptual closure**: what 
 
 If one managed to go beyond the event horizon
 
-Ettorebevilacqua
+Ettore Bevilacqua
 [sapriqbit@gmail.com ](mailto:sapriqbit@gmail.com )
