@@ -331,7 +331,7 @@ La singolarità, così come viene spesso presentata, non è una **necessità ine
 
 Se riuscissimo a oltrepassare l'orizzonte degli eventi ed entrare in un buco nero, ci troveremmo nello stesso “luogo” di qualsiasi altro buco nero? Oltre l'orizzonte si trova la singolarità, che — secondo l'ipotesi — non ha subito rotture di simmetria compatibili con la conservazione dell'energia. Il vuoto non subisce una rottura di simmetria ma una separazione in due opposti, e viviamo all'interno di questa singolarità, dove mappiamo una griglia di spazio-tempo. Il fotone, che ha tempo proprio nullo, dal suo punto di vista (come quello di una navicella) è presente in tutto l'universo: nella singolarità, priva di spazio e tempo, **il fotone è quindi “fermo” nel suo non-spazio. Siamo noi a muoverci e a percepire il suo moto**, e con la nostra osservazione facciamo collassare la funzione d'onda. In pratica, la nostra posizione entra come parametro nella sua funzione d'onda, proprio come in una funzione matematica: se f(x) = 2x, allora 2x rappresenterebbe tutte le posizioni possibili del fotone (una retta), mentre noi siamo un puntino che osserva un punto di quella retta mentre ci muoviamo.
 
-**Cercare la stella a densità infinita, dentro il non spazio del buco nero ha quindi poco senso visto che è lo stesso non spazio di ogni buco nero.** 
+**Cercare la stella a densità infinita, dentro il non spazio del buco nero ha quindi poco senso visto che è lo stesso non spazio di ogni buco nero. Qualsiasi vuoto osservato è sempre lo stesso vuoto, lo stesso non luogo senza tempo.** 
 
 ## Conclusione
 
