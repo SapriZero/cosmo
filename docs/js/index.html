@@ -105,15 +105,24 @@
         </div>
     </div>
 
-    <!-- Three.js from CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
-    
-    <!-- Physics engine -->
-    <script src="physics.js"></script>
-    
-    <!-- Nuovi moduli -->
-    <script src="simulation-engine.js"></script>
-    <script type="module" src="app.js"></script>
+ <!-- Three.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+
+<!-- Fisica -->
+<script src="physics.js"></script>
+
+<!-- Motore -->
+<script src="simulation-engine.js"></script>
+
+<!-- UI Modules (globali) -->
+<script src="ui/UIUtils.js"></script>
+<script src="ui/GravitationalField.js"></script>
+<script src="ui/VideoRecorder.js"></script>
+<script src="ui/BodyEditor.js"></script>
+<script src="ui/UIController.js"></script>
+
+<!-- App principale -->
+<script src="app.js"></script>
 </body>
 </html>
