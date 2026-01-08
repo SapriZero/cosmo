@@ -32,3 +32,40 @@ E quando le poni — quando guardi, quando misuri, quando fai la foto —
 la nebbia si condensa. Il potenziale sceglie una forma.  
 La moneta “decide”.
 
+### **La Funzione: La Regola Dietro la Moneta che Gira**
+
+La moneta che ruota non è solo un’immagine curiosa. È un perfetto esempio di un concetto che usiamo ogni giorno, anche senza accorgercene: la **funzione**.
+
+In matematica, una funzione è una **regola**, non un risultato fisso.  
+Prendiamo questa:
+
+\[
+f[x] = x \cdot 2 \quad \text{oppure, più semplicemente:} \quad y = x \cdot 2
+\]
+
+Cosa significa?  
+Significa: *“Dammi un numero, e io ti restituirò il suo doppio.”*
+
+Ma finché non scegli un numero, **x può essere qualsiasi cosa**: 1, 100, −3.7, π…  
+Proprio come la moneta che gira, che **non è né testa né croce**, ma **tutte e due insieme**, finché non la guardi.
+
+La funzione, allora, è come la **moneta in volo**:  
+– **Contiene tutti i possibili risultati**,  
+– Ma **non ne mostra nessuno**, finché non intervieni tu.
+
+Solo quando decidi che **x = 3**, la regola scatta:  
+\[
+f[3] = 3 \cdot 2 = 6
+\]
+
+Solo quando **fai una foto** alla moneta, essa “sceglie” una faccia: testa, croce, o — se è perfettamente di taglio — **nessuna delle due**.
+
+In entrambi i casi, **l’atto di guardare trasforma il potenziale in realtà**.
+
+- Prima: **tutto è possibile**.  
+- Dopo: **una sola cosa è vera**.
+
+Questo è il cuore della meccanica quantistica.  
+**Non è stranezza.**  
+È **logica congelata al momento giusto**.
+
