@@ -32,5 +32,3 @@ E quando le poni — quando guardi, quando misuri, quando fai la foto —
 la nebbia si condensa. Il potenziale sceglie una forma.  
 La moneta “decide”.
 
-Da qui in poi, non parleremo di equazioni complicate, ma di **storie che il mondo si racconta a se stesso** — storie fatte di rapporti, equilibri, e piccole scelte invisibili.  
-E scopriremo che, in fondo, **anche noi siamo parte di quella danza**.
