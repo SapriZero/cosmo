@@ -1,11 +1,10 @@
 // ui/UIUtils.js
+window.UIUtils = {
 
-export const UIUtils = {
     getBodyRadius(mass) {
         const radius = 0.03 + 0.08 * Math.pow(mass, 1/3);
         return Math.max(0.03, radius);
     },
-
     generateColors(n) {
         const colors = [];
         for (let i = 0; i < n; i++) {
