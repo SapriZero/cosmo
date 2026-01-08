@@ -39,9 +39,7 @@ La moneta che ruota non è solo un’immagine curiosa. È un perfetto esempio di
 In matematica, una funzione è una **regola**, non un risultato fisso.  
 Prendiamo questa:
 
-\[
-f[x] = x \cdot 2 \quad \text{oppure, più semplicemente:} \quad y = x \cdot 2
-\]
+f(x) = x × 2    oppure, più semplicemente:    y = x × 2
 
 Cosa significa?  
 Significa: *“Dammi un numero, e io ti restituirò il suo doppio.”*
@@ -54,9 +52,7 @@ La funzione, allora, è come la **moneta in volo**:
 – Ma **non ne mostra nessuno**, finché non intervieni tu.
 
 Solo quando decidi che **x = 3**, la regola scatta:  
-\[
-f[3] = 3 \cdot 2 = 6
-\]
+f(3) = 3 × 2 = 6
 
 Solo quando **fai una foto** alla moneta, essa “sceglie” una faccia: testa, croce, o — se è perfettamente di taglio — **nessuna delle due**.
 
