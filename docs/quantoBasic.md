@@ -1,3 +1,6 @@
+https://www.informationphilosopher.com/quantum/two-slit/
+https://plus.maths.org/content/physics-minute-double-slit-experiment
+
 ### **Prologo: La Moneta che non Decide**
 
 Questo documento è scritto per chiunque abbia guardato il cielo, un fiore, o un raggio di luce e si sia chiesto: *“Come funziona davvero il mondo?”*  
