@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Three-Body Simulator (JS)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            white-space: pre-wrap;
+            font-family: monospace;
+            min-height: 100px;
+        }
+        .success { color: #27ae60; }
+        .error { color: #e74c3c; }
+    </style>
+</head>
+<body>
+    <h1>🌌 Three-Body Simulator (JavaScript)</h1>
+    <p>Validating energy conservation using the Lagrangian equilateral configuration.</p>
+    
+    <button id="runTest">Run Energy Conservation Test</button>
+    
+    <div id="output">Click "Run Energy Conservation Test" to begin.</div>
+
+    <!-- Carica il motore fisico -->
+    <script src="body3.js"></script>
+    
+    <script>
+        const outputEl = document.getElementById('output');
+        
+        function log(message, className = '') {
+            const line = document.createElement('div');
+            line.textContent = message;
+            if (className) line.className = className;
+            outputEl.appendChild(line);
+            outputEl.scrollTop = outputEl.scrollHeight;
+        }
+
+        function runTest() {
+            outputEl.innerHTML = 'Running test...\n';
+            log('🧪 Starting energy conservation test (Lagrangian equilateral configuration)...');
+            
+            try {
+                // Configurazione Lagrange
+                const a = 1.0;
+                const r1 = [ a,  0.0, 0.0];
+                const r2 = [-a/2,  Math.sqrt(3)*a/2, 0.0];
+                const r3 = [-a/2, -Math.sqrt(3)*a/2, 0.0];
+
+                const v1 = [ 0.0,  1.0, 0.0];
+                const v2 = [-Math.sqrt(3)/2, -0.5, 0.0];
+                const v3 = [ Math.sqrt(3)/2, -0.5, 0.0];
+
+                let state = [
+                    new Body(1.0, r1, v1),
+                    new Body(1.0, r2, v2),
+                    new Body(1.0, r3, v3)
+                ];
+
+                const dt = 0.001;
+                const steps = 5000;
+                const E0 = totalEnergy(state);
+
+                for (let i = 0; i < steps; i++) {
+                    state = leapfrogStep(state, dt);
+                }
+
+                const E1 = totalEnergy(state);
+                const relError = Math.abs(E1 - E0) / (Math.abs(E0) + 1e-15);
+
+                log(`✅ Initial energy: ${E0.toFixed(8)}`);
+                log(`✅ Final energy:   ${E1.toFixed(8)}`);
+                log(`📊 Relative error: ${relError.toExponential(2)}`);
+
+                if (relError < 1e-4) {
+                    log('🟢 Test passed: energy is well conserved!', 'success');
+                } else {
+                    log('🔴 Warning: high energy error.', 'error');
+                }
+            } catch (err) {
+                log(`💥 Error: ${err.message}`, 'error');
+                console.error(err);
+            }
+        }
+
+        document.getElementById('runTest').addEventListener('click', runTest);
+
+        // Opzionale: esegui automaticamente al caricamento
+        // window.addEventListener('load', runTest);
+    </script>
+</body>
+</html>
