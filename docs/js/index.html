@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Three-Body Simulator — 3D</title>
+    <title>N-Body Simulator — 3D Gravitational Dynamics</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
     </div>
 
     <div id="panel">
-        <h2>📊 Three-Body 3D Simulation</h2>
+        <h2>📊 N-Body Simulation</h2>
         
         <div class="param-row">
             <label>Time step (dt):</label>
@@ -45,12 +45,12 @@
         </div>
 
         <div class="param-row" style="flex-direction: column; align-items: flex-start; gap: 5px;">
+            <label>Number of Bodies (N):</label>
+            <input type="range" id="nBodiesSlider" min="2" max="20" value="3" step="1">
+            <span id="nBodiesValue">3</span>
+        </div>
 
-<div class="param-row" style="flex-direction: column; align-items: flex-start; gap: 5px;">
-    <label>Number of Bodies (N):</label>
-    <input type="range" id="nBodiesSlider" min="2" max="20" value="3" step="1">
-    <span id="nBodiesValue">3</span>
-</div>
+        <div class="param-row" style="flex-direction: column; align-items: flex-start; gap: 5px;">
             <label>Initial Configuration:</label>
             <select id="configSelect">
                 <option value="lagrange">Lagrangian Equilateral</option>
@@ -68,42 +68,41 @@
             <input type="checkbox" id="showField">
         </div>
 
+        <!-- Body Editor -->
+        <div class="param-row" style="flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #2d3748;">
+            <label>Edit Body Parameters:</label>
+            <select id="bodySelect">
+                <!-- Popolato dinamicamente -->
+            </select>
+
+            <div style="width:100%; display:flex; gap:8px; flex-wrap:wrap;">
+                <div style="flex:1; min-width:100px;">
+                    <label>Mass:</label>
+                    <input type="range" id="massSlider" min="0.1" max="5" step="0.1" value="1">
+                    <span id="massValue">1.0</span>
+                </div>
+            </div>
+
+            <div style="width:100%; display:grid; grid-template-columns: repeat(3, 1fr); gap:6px; margin-top:5px;">
+                <div><label>X:</label><input type="number" id="posX" step="0.01" value="0"></div>
+                <div><label>Y:</label><input type="number" id="posY" step="0.01" value="0"></div>
+                <div><label>Z:</label><input type="number" id="posZ" step="0.01" value="0"></div>
+            </div>
+            <div style="width:100%; display:grid; grid-template-columns: repeat(3, 1fr); gap:6px; margin-top:5px;">
+                <div><label>Vx:</label><input type="number" id="velX" step="0.01" value="0"></div>
+                <div><label>Vy:</label><input type="number" id="velY" step="0.01" value="0"></div>
+                <div><label>Vz:</label><input type="number" id="velZ" step="0.01" value="0"></div>
+            </div>
+
+            <div class="buttons" style="margin-top:10px;">
+                <button id="applyBtn">✅ Apply</button>
+                <button id="randomizeBtn">🎲 Randomize</button>
+            </div>
+        </div>
+
         <div class="status">
             <div>Status: <span id="statusText">Paused</span></div>
         </div>
-
-
-<!-- Body Editor -->
-<div class="param-row" style="flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #2d3748;">
-    <label>>Edit Body Parameters:</label>
-    <select id="bodySelect">
-        <!-- Opzioni generate dinamicamente -->
-    </select>
-
-    <div style="width:100%; display:flex; gap:8px; flex-wrap:wrap;">
-        <div style="flex:1; min-width:100px;">
-            <label>Mass:</label>
-            <input type="range" id="massSlider" min="0.1" max="5" step="0.1" value="1">
-            <span id="massValue">1.0</span>
-        </div>
-    </div>
-
-    <div style="width:100%; display:grid; grid-template-columns: repeat(3, 1fr); gap:6px; margin-top:5px;">
-        <div><label>X:</label><input type="number" id="posX" step="0.01" value="0"></div>
-        <div><label>Y:</label><input type="number" id="posY" step="0.01" value="0"></div>
-        <div><label>Z:</label><input type="number" id="posZ" step="0.01" value="0"></div>
-    </div>
-    <div style="width:100%; display:grid; grid-template-columns: repeat(3, 1fr); gap:6px; margin-top:5px;">
-        <div><label>Vx:</label><input type="number" id="velX" step="0.01" value="0"></div>
-        <div><label>Vy:</label><input type="number" id="velY" step="0.01" value="0"></div>
-        <div><label>Vz:</label><input type="number" id="velZ" step="0.01" value="0"></div>
-    </div>
-
-    <div class="buttons" style="margin-top:10px;">
-        <button id="applyBtn">✅ Apply</button>
-        <button id="randomizeBtn">🎲 Randomize</button>
-    </div>
-</div>
     </div>
 
     <!-- Three.js from CDN -->
@@ -113,7 +112,9 @@
     <!-- Physics engine -->
     <script src="physics.js"></script>
     
-    <!-- App logic -->
+    <!-- Nuovi moduli -->
+    <script src="simulation-engine.js"></script>
+    <script src="ui-controller.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
