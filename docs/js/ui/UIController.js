@@ -53,11 +53,12 @@ window.UIController = class {
                console.log(`Body ${i}: mass=${mass}, radius=${radius}`);
             const geometry = new THREE.SphereGeometry(radius, 16, 16);
            
-            // Con questa:
-            const material = new THREE.MeshBasicMaterial({ 
-                color: colors[i] || 0xff0000,
-                wireframe: false
-            });
+const material = new THREE.MeshPhongMaterial({
+    color: colors[i] || 0xff6600,
+    emissive: 0x111111,      // leggera emissione per visibilità
+    shininess: 80,           // più alto = più "lucido"
+    flatShading: false       // importante: deve essere false
+});
             
             const mesh = new THREE.Mesh(geometry, material);
             scene.add(mesh);
