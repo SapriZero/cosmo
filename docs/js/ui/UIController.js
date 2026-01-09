@@ -149,17 +149,21 @@ window.UIController = class {
         this.ui.relErrorValue.className = 'energy-good';
     }
 
-    startAnimation() {
-        const animate = () => {
-            this.engine.step();
-            this.updateVisualization();
-            this.updateEnergyUI();
-            if (this.engine.isRunning) {
-                this.animationId = requestAnimationFrame(animate);
-            }
-        };
-        animate();
-    }
+startAnimation() {
+    const animate = () => {
+        this.engine.step();
+        this.updateVisualization();
+        this.updateEnergyUI();
+        
+        // ✅ RENDERIZZA IL FRAME!
+        this.renderer.renderer.render(this.renderer.scene, this.renderer.camera);
+        
+        if (this.engine.isRunning) {
+            this.animationId = requestAnimationFrame(animate);
+        }
+    };
+    animate();
+}
 
     setupEventListeners() {
         // Controlli principali
