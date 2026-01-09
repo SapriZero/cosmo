@@ -1,8 +1,6 @@
 // ui/BodyEditor.js
 
-import { UIUtils } from './UIUtils.js';
-
-export class BodyEditor {
+window.BodyEditor = class {
     constructor(engine, ui, threejsRenderer) {
         this.engine = engine;
         this.ui = ui;
