@@ -33,6 +33,14 @@ function initThreeJS() {
     const pointLight = new THREE.PointLight(0xffffff, 1);
     pointLight.position.set(5, 5, 5);
     scene.add(pointLight);
+    
+    // Luce molto forte per assicurare visibilità
+    const debugLight = new THREE.PointLight(0xffffff, 5, 100);
+    debugLight.position.set(0, 0, 10);
+    scene.add(debugLight);
+
+// Assicurati che la camera guardi l'origine
+camera.lookAt(0, 0, 0);
 
     // Gestione resize
     function onWindowResize() {
