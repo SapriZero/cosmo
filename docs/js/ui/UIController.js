@@ -52,7 +52,13 @@ window.UIController = class {
             const radius = window.UIUtils.getBodyRadius(mass);
                console.log(`Body ${i}: mass=${mass}, radius=${radius}`);
             const geometry = new THREE.SphereGeometry(radius, 16, 16);
-            const material = new THREE.MeshPhongMaterial({ color: colors[i] });
+           
+            // Con questa:
+            const material = new THREE.MeshBasicMaterial({ 
+                color: colors[i] || 0xff0000,
+                wireframe: false
+            });
+            
             const mesh = new THREE.Mesh(geometry, material);
             scene.add(mesh);
             newBodies.push(mesh);
