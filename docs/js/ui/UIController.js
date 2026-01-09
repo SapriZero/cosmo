@@ -44,9 +44,15 @@ window.UIController = class {
     setupSceneForN(n) {
         const { scene } = this.renderer;
         
-        // Rimuovi vecchi corpi
-        this.bodies.forEach(mesh => {
-            mesh.geometry.dispose();
+        // Rimuovi TUTTE le sfere dalla scena (metodo sicuro)
+        const meshesToRemove = [];
+        scene.traverse(child => {
+            if (child.isMesh && child.geometry && child.geometry.type === 'SphereGeometry') {
+                meshesToRemove.push(child);
+            }
+        });
+        meshesToRemove.forEach(mesh => {
+            if (mesh.geometry) mesh.geometry.dispose();
             scene.remove(mesh);
         });
         
