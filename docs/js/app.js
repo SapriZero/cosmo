@@ -28,17 +28,19 @@ function initThreeJS() {
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
 
-    // Luci ottimizzate per visibilità
-    const ambientLight = new THREE.AmbientLight(0x404040, 2.0); // più intensa
-    scene.add(ambientLight);
-    
-    const pointLight = new THREE.PointLight(0xffffff, 2, 50);
-    pointLight.position.set(5, 5, 5);
-    scene.add(pointLight);
+    // Luce ambientale (riempie le ombre)
+const ambientLight = new THREE.AmbientLight(0x404040, 1.8);
+scene.add(ambientLight);
 
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-dirLight.position.set(0, 10, 10);
+// Luce direzionale (dà profondità)
+const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+dirLight.position.set(5, 5, 5);
 scene.add(dirLight);
+
+// Luce puntiforme aggiuntiva (opzionale)
+const pointLight = new THREE.PointLight(0xffffff, 0.8, 50);
+pointLight.position.set(-5, -5, 5);
+scene.add(pointLight);
 
     // 👁️‍🗨️ Sfera di prova (rimuovi questa se vedi i corpi!)
     
