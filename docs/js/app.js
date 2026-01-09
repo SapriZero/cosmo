@@ -10,6 +10,12 @@ const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerH
 camera.position.set(0, 0, 5);
 camera.lookAt(0, 0, 0); // ← AGGIUNGI QUESTA RIGA
 
+    const testSphere = new THREE.Mesh(
+    new THREE.SphereGeometry(0.5, 16, 16),
+    new THREE.MeshPhongMaterial({ color: 0x00ff00 })
+);
+scene.add(testSphere);
+
     const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
     const container = document.getElementById('canvas-container');
     if (!container) {
