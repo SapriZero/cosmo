@@ -6,8 +6,9 @@ function initThreeJS() {
     scene.background = new THREE.Color(0x0a0a14);
     scene.fog = new THREE.Fog(0x0a0a14, 10, 20);
 
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(0, 0, 5);
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(0, 0, 5);
+camera.lookAt(0, 0, 0); // ← AGGIUNGI QUESTA RIGA
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
     const container = document.getElementById('canvas-container');
