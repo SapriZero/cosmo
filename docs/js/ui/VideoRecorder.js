@@ -1,6 +1,6 @@
 // ui/VideoRecorder.js
 
-export class VideoRecorder {
+window.VideoRecorder = class {
     constructor(rendererDomElement, ui, currentNGetter) {
         this.rendererDomElement = rendererDomElement;
         this.ui = ui;
