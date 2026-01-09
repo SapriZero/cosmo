@@ -49,7 +49,9 @@ window.UIController = class {
             newTrailMaterials.push(new THREE.LineBasicMaterial({ color: colors[i] }));
         }
 
-        this.renderer.bodies = newBodies;
+       this.renderer.bodies = newBodies;
+console.log("Bodies array updated. Length:", newBodies.length);
+        
         this.renderer.trailMaterials = newTrailMaterials;
 
         if (this.ui.bodySelect) {
