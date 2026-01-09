@@ -21,7 +21,13 @@ window.UIController = class {
             () => engine.getState(),
             ui
         );
-        this.bodyEditor = new window.BodyEditor(engine, ui, threejsRenderer);
+
+        // In UIController.js, nel costruttore:
+this.bodyEditor = new window.BodyEditor(
+    engine,
+    ui,
+    this.renderer  // ← deve essere l'oggetto con .bodies
+);
 
         this.animationId = null;
     }
