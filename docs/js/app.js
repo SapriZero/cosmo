@@ -25,6 +25,14 @@ function initThreeJS() {
     container.appendChild(renderer.domElement);
 
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
+engine.initSimulation('lagrange', 3);
+controller.setupSceneForN(3);
+controller.updateVisualization(); // ← disegna subito i corpi
+controller.updateUI();
+
+// Renderizza il primo frame
+threejs.renderer.render(threejs.scene, threejs.camera);
+    
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
 
