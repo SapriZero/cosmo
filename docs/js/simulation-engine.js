@@ -14,6 +14,7 @@ class SimulationEngine {
     }
 
     initSimulation(configKey, N) {
+        this.state = window.InitialConfigurations.lagrange.fn();
         this.currentConfig = configKey;
         this.currentN = N;
 
