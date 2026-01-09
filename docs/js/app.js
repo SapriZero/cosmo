@@ -104,8 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 3. Crea motore di simulazione
-    const engine = new SimulationEngine();
-
+const engine = new window.SimulationEngine();
 
     console.log("UIController exists?", typeof window.UIController);
 if (typeof window.UIController === 'undefined') {
