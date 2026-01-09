@@ -26,18 +26,13 @@ window.SimulationEngine = class {
             this.state = this.createRandomStableState(N);
         }
 
-        // Verifica che lo stato sia valido
-        if (!this.state || this.state.length !== N) {
-            console.error("❌ Failed to initialize state with", N, "bodies");
-            this.state = this.createRandomStableState(N); // fallback
-        }
+        // ✅ SPOSTATO QUI: ora this.state esiste
+        console.log("Intialized state with", this.state.length, "bodies");
 
         // Inizializza traiettorie ed energia
         this.trajectories = Array(N).fill().map(() => []);
         this.E0 = window.totalEnergy(this.state);
         this.simulatedTime = 0;
-
-        console.log("Intialized state with", this.state.length, "bodies");
     }
 
     createRandomStableState(N) {
