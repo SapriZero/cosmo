@@ -144,6 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 7. Avvia controller
     controller.setupEventListeners();
+    // Renderizza la scena iniziale (corpi fermi)
+threejs.renderer.render(threejs.scene, threejs.camera);
 
     console.log("✅ Simulator ready!");
 });
