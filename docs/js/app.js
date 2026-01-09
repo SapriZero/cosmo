@@ -106,8 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Crea motore di simulazione
     const engine = new SimulationEngine();
 
-    // 4. Crea controller UI
-    const controller = new UIController(engine, ui, threejs);
+
+    console.log("UIController exists?", typeof window.UIController);
+if (typeof window.UIController === 'undefined') {
+    console.error("❌ UIController not loaded! Check script order.");
+    return;
+}
+const controller = new window.UIController(engine, ui, threejs);
 
     // 5. Inizializza simulazione
     engine.initSimulation('lagrange', 3);
