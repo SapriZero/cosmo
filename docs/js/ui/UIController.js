@@ -50,6 +50,7 @@ window.UIController = class {
         for (let i = 0; i < n; i++) {
             const mass = state[i].m;
             const radius = window.UIUtils.getBodyRadius(mass);
+               console.log(`Body ${i}: mass=${mass}, radius=${radius}`);
             const geometry = new THREE.SphereGeometry(radius, 16, 16);
             const material = new THREE.MeshPhongMaterial({ color: colors[i] });
             const mesh = new THREE.Mesh(geometry, material);
