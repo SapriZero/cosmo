@@ -13,23 +13,41 @@ class SimulationEngine {
         this.MAX_TRAIL = 500;
     }
 
-    initSimulation(configKey, N) {
+initSimulation(configKey, N) {
+    this.currentConfig = configKey;
+    this.currentN = N;
+
+    if (N === 3 && configKey === 'lagrange') {
         this.state = window.InitialConfigurations.lagrange.fn();
-        this.currentConfig = configKey;
-        this.currentN = N;
-
-        if (N === 3 && configKey === 'lagrange') {
-            this.state = window.InitialConfigurations.lagrange.fn();
-        } else if (N === 3 && configKey === 'figure8') {
-            this.state = window.InitialConfigurations.figure8.fn();
-        } else {
-            this.state = this.createRandomStableState(N);
-        }
-
-        this.trajectories = Array(N).fill().map(() => []);
-        this.E0 = window.totalEnergy(this.state);
-        this.simulatedTime = 0;
+    } else if (N === 3 && configKey === 'figure8') {
+        this.state = window.InitialConfigurations.figure8.fn();
+    } else {
+        // ✅ Usa la funzione LOCALE che supporta N arbitrario
+        this.state = this.createRandomStableState(N);
     }
+
+    this.trajectories = Array(N).fill().map(() => []);
+    this.E0 = window.totalEnergy(this.state);
+    this.simulatedTime = 0;
+}
+
+    // Dentro class SimulationEngine
+createRandomStableState(N) {
+    const bodies = [];
+    for (let i = 0; i < N; i++) {
+        const angle = (i / N) * Math.PI * 2 + Math.random() * 0.5;
+        const radius = 1.0 + Math.random() * 2.0;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+        const z = (Math.random() - 0.5) * 0.1;
+        const speed = 0.8 / Math.sqrt(radius);
+        const vx = -Math.sin(angle) * speed + (Math.random() - 0.5) * 0.1;
+        const vy = Math.cos(angle) * speed + (Math.random() - 0.5) * 0.1;
+        const vz = (Math.random() - 0.5) * 0.05;
+        bodies.push(new Body(1.0, [x, y, z], [vx, vy, vz]));
+    }
+    return bodies;
+}
 
     createRandomStableState(N) {
         const bodies = [];
