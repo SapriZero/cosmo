@@ -1,6 +1,6 @@
 // simulation-engine.js — Stato della simulazione incapsulato
 
-class SimulationEngine {
+window.SimulationEngine = class {
     constructor() {
         this.state = null;
         this.E0 = 0;
