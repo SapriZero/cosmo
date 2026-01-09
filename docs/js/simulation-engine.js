@@ -16,6 +16,7 @@ window.SimulationEngine = class {
 initSimulation(configKey, N) {
     this.currentConfig = configKey;
     this.currentN = N;
+    console.log("Initialized state with", this.state.length, "bodies");
 
     if (N === 3 && configKey === 'lagrange') {
         this.state = window.InitialConfigurations.lagrange.fn();
