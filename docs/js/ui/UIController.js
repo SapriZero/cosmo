@@ -22,30 +22,21 @@ window.UIController = class {
             ui
         );
 
-        // In UIController.js, nel costruttore:
-this.bodyEditor = new window.BodyEditor(
-    engine,
-    ui,
-    this.renderer  // ← deve essere l'oggetto con .bodies
-);
+        // Crea BodyEditor
+        this.bodyEditor = new window.BodyEditor(engine, ui, this.renderer);
+
         // ✅ Collega l'aggiornamento della mesh
-this.bodyEditor.onBodyUpdated = (index, mass) => {
-    const newRadius = window.UIUtils.getBodyRadius(mass);
-    const mesh = this.bodies[index];
-    if (mesh) {
-        mesh.geometry.dispose();
-        mesh.geometry = new THREE.SphereGeometry(newRadius, 16, 16);
-    }
-};
-        // Nel costruttore di UIController.js
-this.bodyEditor.onMassUpdated = (index, mass) => {
-    const newRadius = window.UIUtils.getBodyRadius(mass);
-    const mesh = this.bodies[index];
-    if (mesh) {
-        mesh.geometry.dispose();
-        mesh.geometry = new THREE.SphereGeometry(newRadius, 16, 16);
-    }
-};
+        this.bodyEditor.onMassUpdated = (index, mass) => {
+            const newRadius = window.UIUtils.getBodyRadius(mass);
+            const mesh = this.bodies[index];
+            if (mesh) {
+                mesh.geometry.dispose();
+                mesh.geometry = new THREE.SphereGeometry(newRadius, 16, 16);
+                // Aggiorna subito la posizione (opzionale ma sicuro)
+                const state = this.engine.getState();
+                mesh.position.set(state[index].r[0], state[index].r[1], state[index].r[2]);
+            }
+        };
 
         this.animationId = null;
     }
@@ -74,15 +65,15 @@ this.bodyEditor.onMassUpdated = (index, mass) => {
         for (let i = 0; i < n; i++) {
             const mass = state[i].m;
             const radius = window.UIUtils.getBodyRadius(mass);
-               console.log(`Body ${i}: mass=${mass}, radius=${radius}`);
+            console.log(`Body ${i}: mass=${mass}, radius=${radius}`);
             const geometry = new THREE.SphereGeometry(radius, 16, 16);
            
-const material = new THREE.MeshPhongMaterial({
-    color: colors[i] || 0xff6600,
-    emissive: 0x111111,      // leggera emissione per visibilità
-    shininess: 80,           // più alto = più "lucido"
-    flatShading: false       // importante: deve essere false
-});
+            const material = new THREE.MeshPhongMaterial({
+                color: colors[i] || 0xff6600,
+                emissive: 0x111111,
+                shininess: 80,
+                flatShading: false
+            });
             
             const mesh = new THREE.Mesh(geometry, material);
             scene.add(mesh);
@@ -111,23 +102,11 @@ const material = new THREE.MeshPhongMaterial({
 
     updateVisualization() {
         const state = this.engine.getState();
-        const trajectories = this.engine.getTrajectories(); // ✅ AGGIUNTO!
+        const trajectories = this.engine.getTrajectories();
         const { scene } = this.renderer;
 
-        console.log("Updating visualization. State length:", state.length);
-        console.log("Bodies length:", this.bodies.length);
-
         // Aggiorna posizioni
-       /* for (let i = 0; i < state.length; i++) {
-            if (!this.bodies[i]) {
-                console.warn("⚠️ Body mesh missing at index", i);
-                continue;
-            }
-            this.bodies[i].position.set(state[i].r[0], state[i].r[1], state[i].r[2]);
-        }*/
-        
         for (let i = 0; i < state.length; i++) {
-            console.log(`Body ${i} position:`, state[i].r);
             if (this.bodies[i]) {
                 this.bodies[i].position.set(state[i].r[0], state[i].r[1], state[i].r[2]);
             }
@@ -138,10 +117,10 @@ const material = new THREE.MeshPhongMaterial({
             const existing = scene.getObjectByName(`trail-${i}`);
             if (existing) scene.remove(existing);
 
-            if (trajectories[i].length > 1) { // ✅ Ora trajectories è definito
+            if (trajectories[i]?.length > 1) {
                 const points = trajectories[i].map(p => new THREE.Vector3(p[0], p[1], p[2]));
                 const geometry = new THREE.BufferGeometry().setFromPoints(points);
-                const line = new THREE.Line(geometry, this.trailMaterials[i]); // ✅ Usa this.trailMaterials
+                const line = new THREE.Line(geometry, this.trailMaterials[i]);
                 line.name = `trail-${i}`;
                 scene.add(line);
             }
@@ -151,9 +130,6 @@ const material = new THREE.MeshPhongMaterial({
             this.gravitationalField.createField();
         }
     }
-
-    // ... resto del codice (updateEnergyUI, startAnimation, ecc.) rimane uguale ...
-    // Assicurati solo di usare this.bodies e this.trailMaterials dove necessario
 
     updateEnergyUI() {
         const E1 = this.engine.getCurrentEnergy();
@@ -174,21 +150,18 @@ const material = new THREE.MeshPhongMaterial({
         this.ui.relErrorValue.className = 'energy-good';
     }
 
-startAnimation() {
-    const animate = () => {
-        this.engine.step();
-        this.updateVisualization();
-        this.updateEnergyUI();
-        
-        // ✅ RENDERIZZA IL FRAME!
-        this.renderer.renderer.render(this.renderer.scene, this.renderer.camera);
-        
-        if (this.engine.isRunning) {
-            this.animationId = requestAnimationFrame(animate);
-        }
-    };
-    animate();
-}
+    startAnimation() {
+        const animate = () => {
+            this.engine.step();
+            this.updateVisualization();
+            this.updateEnergyUI();
+            this.renderer.renderer.render(this.renderer.scene, this.renderer.camera);
+            if (this.engine.isRunning) {
+                this.animationId = requestAnimationFrame(animate);
+            }
+        };
+        animate();
+    }
 
     setupEventListeners() {
         // Controlli principali
@@ -245,19 +218,36 @@ startAnimation() {
             this.ui.dtValue.textContent = this.engine.dt.toFixed(4);
         });
 
-        // Configurazione N corpi
+        // ✅ CORRETTO: Gestione dinamica di nBodiesSlider
         if (this.ui.nBodiesSlider) {
             this.ui.nBodiesSlider.addEventListener('input', () => {
                 const N = parseInt(this.ui.nBodiesSlider.value);
                 this.ui.nBodiesValue.textContent = N;
-                if (!this.engine.isRunning) {
-                    const newConfig = (N === 3) ? this.engine.currentConfig : 'chaotic';
-                    this.engine.initSimulation(newConfig, N);
-                    this.setupSceneForN(N);
-                    this.updateVisualization();
-                    this.updateUI();
-                    if (this.ui.configSelect) this.ui.configSelect.disabled = (N !== 3);
+
+                // Ferma la simulazione se attiva
+                if (this.engine.isRunning) {
+                    this.engine.isRunning = false;
+                    if (this.animationId) {
+                        cancelAnimationFrame(this.animationId);
+                        this.animationId = null;
+                    }
+                    this.ui.playBtn.disabled = false;
+                    this.ui.pauseBtn.disabled = true;
                 }
+
+                // Reinizializza tutto per il nuovo N
+                const newConfig = (N === 3) ? this.engine.currentConfig : 'chaotic';
+                this.engine.initSimulation(newConfig, N);
+                this.setupSceneForN(N);
+                this.updateVisualization();
+                this.updateUI();
+
+                if (this.ui.configSelect) {
+                    this.ui.configSelect.disabled = (N !== 3);
+                }
+
+                // ✅ Renderizza subito la nuova scena
+                this.renderer.renderer.render(this.renderer.scene, this.renderer.camera);
             });
         }
 
