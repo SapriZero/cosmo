@@ -1,6 +1,6 @@
 // ui/GravitationalField.js
 
-export class GravitationalField {
+window.GravitationalField = class {
     constructor(scene, getState, ui) {
         this.scene = scene;
         this.getState = getState;
