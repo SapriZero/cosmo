@@ -37,6 +37,15 @@ this.bodyEditor.onBodyUpdated = (index, mass) => {
         mesh.geometry = new THREE.SphereGeometry(newRadius, 16, 16);
     }
 };
+        // Nel costruttore di UIController.js
+this.bodyEditor.onMassUpdated = (index, mass) => {
+    const newRadius = window.UIUtils.getBodyRadius(mass);
+    const mesh = this.bodies[index];
+    if (mesh) {
+        mesh.geometry.dispose();
+        mesh.geometry = new THREE.SphereGeometry(newRadius, 16, 16);
+    }
+};
 
         this.animationId = null;
     }
