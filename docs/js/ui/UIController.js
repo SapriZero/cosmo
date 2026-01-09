@@ -24,10 +24,6 @@ window.UIController = class {
 
     setupSceneForN(n) {
         const { scene, bodies, trailMaterials } = this.renderer;
-
-           console.log("🔧 Creating", n, "bodies");
-    const state = this.engine.getState();
-    console.log("State:", state);
         
         bodies.forEach(mesh => {
             mesh.geometry.dispose();
