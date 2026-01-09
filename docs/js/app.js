@@ -38,6 +38,7 @@ function initThreeJS() {
     const debugLight = new THREE.PointLight(0xffffff, 5, 100);
     debugLight.position.set(0, 0, 10);
     scene.add(debugLight);
+    scene.background = new THREE.Color(0x222222); // grigio scuro invece di nero
 
 // Assicurati che la camera guardi l'origine
 camera.lookAt(0, 0, 0);
