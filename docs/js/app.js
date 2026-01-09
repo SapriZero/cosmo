@@ -3,18 +3,11 @@
 // Inizializza Three.js e restituisce oggetto con scena, renderer, ecc.
 function initThreeJS() {
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0a0a14);
-    scene.fog = new THREE.Fog(0x0a0a14, 10, 20);
+    scene.background = new THREE.Color(0x111111); // sfondo grigio scuro uniforme
 
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0, 0, 5);
-camera.lookAt(0, 0, 0); // ← AGGIUNGI QUESTA RIGA
-
-    const testSphere = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 16, 16),
-    new THREE.MeshPhongMaterial({ color: 0x00ff00 })
-);
-scene.add(testSphere);
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 0, 5);
+    camera.lookAt(0, 0, 0); // ✅ Fondamentale!
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
     const container = document.getElementById('canvas-container');
@@ -23,7 +16,7 @@ scene.add(testSphere);
         return null;
     }
 
-    // Imposta dimensione minima se necessario
+    // Assicura altezza minima
     if (container.clientHeight === 0) {
         container.style.height = '600px';
     }
@@ -35,20 +28,22 @@ scene.add(testSphere);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
 
-    const ambientLight = new THREE.AmbientLight(0x404040, 1.5);
+    // Luci ottimizzate per visibilità
+    const ambientLight = new THREE.AmbientLight(0x404040, 2.0); // più intensa
     scene.add(ambientLight);
-    const pointLight = new THREE.PointLight(0xffffff, 1);
+    
+    const pointLight = new THREE.PointLight(0xffffff, 2, 50);
     pointLight.position.set(5, 5, 5);
     scene.add(pointLight);
-    
-    // Luce molto forte per assicurare visibilità
-    const debugLight = new THREE.PointLight(0xffffff, 5, 100);
-    debugLight.position.set(0, 0, 10);
-    scene.add(debugLight);
-    scene.background = new THREE.Color(0x222222); // grigio scuro invece di nero
 
-// Assicurati che la camera guardi l'origine
-camera.lookAt(0, 0, 0);
+    // 👁️‍🗨️ Sfera di prova (rimuovi questa se vedi i corpi!)
+    /*
+    const testSphere = new THREE.Mesh(
+        new THREE.SphereGeometry(0.3, 16, 16),
+        new THREE.MeshPhongMaterial({ color: 0x00ff00 })
+    );
+    scene.add(testSphere);
+    */
 
     // Gestione resize
     function onWindowResize() {
@@ -111,20 +106,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 3. Crea motore di simulazione
-const engine = new window.SimulationEngine();
+    const engine = new window.SimulationEngine();
 
-    console.log("UIController exists?", typeof window.UIController);
-if (typeof window.UIController === 'undefined') {
-    console.error("❌ UIController not loaded! Check script order.");
-    return;
-}
-const controller = new window.UIController(engine, ui, threejs);
+    // 4. Verifica e crea controller
+    if (typeof window.UIController === 'undefined') {
+        console.error("❌ UIController not loaded! Check script order and syntax.");
+        return;
+    }
+    const controller = new window.UIController(engine, ui, threejs);
 
     // 5. Inizializza simulazione
     engine.initSimulation('lagrange', 3);
-console.log("About to call setupSceneForN...");
-controller.setupSceneForN(3);
-console.log("setupSceneForN called.");
+    controller.setupSceneForN(3);
     controller.updateVisualization();
     controller.updateUI();
 
