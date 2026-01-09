@@ -54,6 +54,8 @@ function initThreeJS() {
         renderer.setSize(width, height);
     }
     window.addEventListener('resize', onWindowResize);
+    // Alla fine di initThreeJS(), prima di return:
+renderer.render(scene, camera); // ← RENDER INIZIALE
 
     return { scene, renderer, camera, controls, bodies: [], trailMaterials: [] };
 }
