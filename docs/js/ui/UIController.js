@@ -187,6 +187,10 @@ trailsToRemove.forEach(line => {
 
         this.ui.pauseBtn.addEventListener('click', () => {
             this.engine.isRunning = false;
+            if (this.animationId) {
+                cancelAnimationFrame(this.animationId);
+                this.animationId = null; // ✅ IMPORTANTE!
+            }
             this.ui.statusText.textContent = 'Paused';
             this.ui.playBtn.disabled = false;
             this.ui.pauseBtn.disabled = true;
@@ -198,6 +202,7 @@ trailsToRemove.forEach(line => {
                 cancelAnimationFrame(this.animationId);
                 this.animationId = null;
             }
+            
             this.ui.playBtn.disabled = false;
             this.ui.pauseBtn.disabled = true;
             this.ui.statusText.textContent = 'Reset';
