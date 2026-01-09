@@ -42,11 +42,11 @@ scene.add(dirLight);
 
     // 👁️‍🗨️ Sfera di prova (rimuovi questa se vedi i corpi!)
     
-    const testSphere = new THREE.Mesh(
+  /*  const testSphere = new THREE.Mesh(
         new THREE.SphereGeometry(0.3, 16, 16),
         new THREE.MeshPhongMaterial({ color: 0x00ff00 })
     );
-    scene.add(testSphere);
+    scene.add(testSphere); */
 
 
     // Gestione resize
