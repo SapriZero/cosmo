@@ -65,13 +65,19 @@ window.UIController = class {
     }
 
     updateVisualization() {
-        const state = this.engine.getState();
-        const trajectories = this.engine.getTrajectories();
-        const { scene, bodies, trailMaterials } = this.renderer;
+            const state = this.engine.getState();
+    console.log("Updating visualization. State length:", state.length);
+    console.log("Bodies length:", this.renderer.bodies.length);
+    
+    const { scene, bodies, trailMaterials } = this.renderer;
 
-        for (let i = 0; i < state.length; i++) {
-            bodies[i].position.set(state[i].r[0], state[i].r[1], state[i].r[2]);
+    for (let i = 0; i < state.length; i++) {
+        if (!bodies[i]) {
+            console.warn("⚠️ Body mesh missing at index", i);
+            continue;
         }
+        bodies[i].position.set(state[i].r[0], state[i].r[1], state[i].r[2]);
+    }
 
         for (let i = 0; i < state.length; i++) {
             const existing = scene.getObjectByName(`trail-${i}`);
