@@ -1,11 +1,6 @@
 // ui/UIController.js
 
-import { UIUtils } from './UIUtils.js';
-import { VideoRecorder } from './VideoRecorder.js';
-import { GravitationalField } from './GravitationalField.js';
-import { BodyEditor } from './BodyEditor.js';
-
-export class UIController {
+window.UIController = class {
     constructor(engine, ui, threejsRenderer) {
         this.engine = engine;
         this.ui = ui;
