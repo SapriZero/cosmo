@@ -163,11 +163,12 @@ const InitialConfigurations = {
 };
 
 // --- Esporta su window per l'uso nel browser ---
+
 if (typeof window !== 'undefined') {
     window.Vec3 = Vec3;
     window.Body = Body;
     window.accelerations = accelerations;
     window.totalEnergy = totalEnergy;
     window.leapfrogStep = leapfrogStep;
-    window.InitialConfigurations = InitialConfigurations;
+    window.InitialConfigurations = InitialConfigurations; // ← FONDAMENTALE!
 }
