@@ -36,6 +36,10 @@ function initThreeJS() {
     pointLight.position.set(5, 5, 5);
     scene.add(pointLight);
 
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+dirLight.position.set(0, 10, 10);
+scene.add(dirLight);
+
     // 👁️‍🗨️ Sfera di prova (rimuovi questa se vedi i corpi!)
     
     const testSphere = new THREE.Mesh(
