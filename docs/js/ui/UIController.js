@@ -28,6 +28,15 @@ this.bodyEditor = new window.BodyEditor(
     ui,
     this.renderer  // ← deve essere l'oggetto con .bodies
 );
+        // ✅ Collega l'aggiornamento della mesh
+this.bodyEditor.onBodyUpdated = (index, mass) => {
+    const newRadius = window.UIUtils.getBodyRadius(mass);
+    const mesh = this.bodies[index];
+    if (mesh) {
+        mesh.geometry.dispose();
+        mesh.geometry = new THREE.SphereGeometry(newRadius, 16, 16);
+    }
+};
 
         this.animationId = null;
     }
