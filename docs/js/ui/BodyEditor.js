@@ -25,22 +25,14 @@ window.BodyEditor = class {
 
 applyBodyParameters() {
     const m = parseFloat(this.ui.massSlider.value);
-    const r = [
-        parseFloat(this.ui.posX.value || 0),
-        parseFloat(this.ui.posY.value || 0),
-        parseFloat(this.ui.posZ.value || 0)
-    ];
-    const v = [
-        parseFloat(this.ui.velX.value || 0),
-        parseFloat(this.ui.velY.value || 0),
-        parseFloat(this.ui.velZ.value || 0)
-    ];
+    const r = [parseFloat(this.ui.posX.value), parseFloat(this.ui.posY.value), parseFloat(this.ui.posZ.value)];
+    const v = [parseFloat(this.ui.velX.value), parseFloat(this.ui.velY.value), parseFloat(this.ui.velZ.value)];
 
     this.engine.updateBody(this.selectedBodyIndex, m, r, v);
 
-    // ✅ Notifica il controller di aggiornare la mesh
-    if (typeof this.onBodyUpdated === 'function') {
-        this.onBodyUpdated(this.selectedBodyIndex, m);
+    // ✅ Notifica chi lo ascolta
+    if (this.onMassUpdated) {
+        this.onMassUpdated(this.selectedBodyIndex, m);
     }
 }
 
