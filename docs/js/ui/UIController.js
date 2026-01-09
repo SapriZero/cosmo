@@ -6,41 +6,50 @@ window.UIController = class {
         this.ui = ui;
         this.renderer = threejsRenderer;
 
+        // ✅ Usa proprietà locali invece di modificare renderer
+        this.bodies = [];
+        this.trailMaterials = [];
+
         // Sottosistemi
-        this.videoRecorder = new VideoRecorder(
+        this.videoRecorder = new window.VideoRecorder(
             threejsRenderer.renderer.domElement,
             ui,
             () => engine.currentN
         );
-        this.gravitationalField = new GravitationalField(
+        this.gravitationalField = new window.GravitationalField(
             threejsRenderer.scene,
             () => engine.getState(),
             ui
         );
-        this.bodyEditor = new BodyEditor(engine, ui, threejsRenderer);
+        this.bodyEditor = new window.BodyEditor(engine, ui, threejsRenderer);
 
         this.animationId = null;
     }
 
     setupSceneForN(n) {
-        const { scene, bodies, trailMaterials } = this.renderer;
+        const { scene } = this.renderer;
         
-        bodies.forEach(mesh => {
+        // Rimuovi vecchi corpi
+        this.bodies.forEach(mesh => {
             mesh.geometry.dispose();
             scene.remove(mesh);
         });
+        
+        // Rimuovi tracce
         for (let i = 0; i < 100; i++) {
             const trail = scene.getObjectByName(`trail-${i}`);
             if (trail) scene.remove(trail);
         }
 
+        // Crea nuovi corpi
         const newBodies = [];
         const newTrailMaterials = [];
-        const colors = UIUtils.generateColors(n);
+        const colors = window.UIUtils.generateColors(n);
         const state = this.engine.getState();
+        
         for (let i = 0; i < n; i++) {
             const mass = state[i].m;
-            const radius = UIUtils.getBodyRadius(mass);
+            const radius = window.UIUtils.getBodyRadius(mass);
             const geometry = new THREE.SphereGeometry(radius, 16, 16);
             const material = new THREE.MeshPhongMaterial({ color: colors[i] });
             const mesh = new THREE.Mesh(geometry, material);
@@ -49,11 +58,13 @@ window.UIController = class {
             newTrailMaterials.push(new THREE.LineBasicMaterial({ color: colors[i] }));
         }
 
-       this.renderer.bodies = newBodies;
-console.log("Bodies array updated. Length:", newBodies.length);
-        
-        this.renderer.trailMaterials = newTrailMaterials;
+        // ✅ Aggiorna proprietà locali
+        this.bodies = newBodies;
+        this.trailMaterials = newTrailMaterials;
 
+        console.log("Bodies array updated. Length:", newBodies.length);
+
+        // Aggiorna menu corpo
         if (this.ui.bodySelect) {
             this.ui.bodySelect.innerHTML = '';
             for (let i = 0; i < n; i++) {
@@ -67,28 +78,31 @@ console.log("Bodies array updated. Length:", newBodies.length);
     }
 
     updateVisualization() {
-            const state = this.engine.getState();
-    console.log("Updating visualization. State length:", state.length);
-    console.log("Bodies length:", this.renderer.bodies.length);
-    
-    const { scene, bodies, trailMaterials } = this.renderer;
+        const state = this.engine.getState();
+        const trajectories = this.engine.getTrajectories(); // ✅ AGGIUNTO!
+        const { scene } = this.renderer;
 
-    for (let i = 0; i < state.length; i++) {
-        if (!bodies[i]) {
-            console.warn("⚠️ Body mesh missing at index", i);
-            continue;
+        console.log("Updating visualization. State length:", state.length);
+        console.log("Bodies length:", this.bodies.length);
+
+        // Aggiorna posizioni
+        for (let i = 0; i < state.length; i++) {
+            if (!this.bodies[i]) {
+                console.warn("⚠️ Body mesh missing at index", i);
+                continue;
+            }
+            this.bodies[i].position.set(state[i].r[0], state[i].r[1], state[i].r[2]);
         }
-        bodies[i].position.set(state[i].r[0], state[i].r[1], state[i].r[2]);
-    }
 
+        // Aggiorna traiettorie
         for (let i = 0; i < state.length; i++) {
             const existing = scene.getObjectByName(`trail-${i}`);
             if (existing) scene.remove(existing);
 
-            if (trajectories[i].length > 1) {
+            if (trajectories[i].length > 1) { // ✅ Ora trajectories è definito
                 const points = trajectories[i].map(p => new THREE.Vector3(p[0], p[1], p[2]));
                 const geometry = new THREE.BufferGeometry().setFromPoints(points);
-                const line = new THREE.Line(geometry, trailMaterials[i]);
+                const line = new THREE.Line(geometry, this.trailMaterials[i]); // ✅ Usa this.trailMaterials
                 line.name = `trail-${i}`;
                 scene.add(line);
             }
@@ -98,6 +112,9 @@ console.log("Bodies array updated. Length:", newBodies.length);
             this.gravitationalField.createField();
         }
     }
+
+    // ... resto del codice (updateEnergyUI, startAnimation, ecc.) rimane uguale ...
+    // Assicurati solo di usare this.bodies e this.trailMaterials dove necessario
 
     updateEnergyUI() {
         const E1 = this.engine.getCurrentEnergy();
@@ -217,4 +234,4 @@ console.log("Bodies array updated. Length:", newBodies.length);
         // Editor corpo
         this.bodyEditor.setupEventListeners();
     }
-}
+};
