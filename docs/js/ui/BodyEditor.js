@@ -4,7 +4,7 @@ window.BodyEditor = class {
     constructor(engine, ui, threejsRenderer) {
         this.engine = engine;
         this.ui = ui;
-        this.renderer = threejsRenderer;
+        this.renderer = threejsRenderer; // ✅ Necessario per accedere alle mesh
         this.selectedBodyIndex = 0;
     }
 
@@ -36,13 +36,16 @@ window.BodyEditor = class {
             parseFloat(this.ui.velZ.value || 0)
         ];
 
+        // Aggiorna lo stato fisico
         this.engine.updateBody(this.selectedBodyIndex, m, r, v);
 
-        // Aggiorna mesh
-        const bodies = this.renderer.bodies;
-        const newRadius = UIUtils.getBodyRadius(m);
-        bodies[this.selectedBodyIndex].geometry.dispose();
-        bodies[this.selectedBodyIndex].geometry = new THREE.SphereGeometry(newRadius, 16, 16);
+        // ✅ AGGIORNA LA MESH THREE.JS CON NUOVO RAGGIO
+        const newRadius = window.UIUtils.getBodyRadius(m);
+        const mesh = this.renderer.bodies[this.selectedBodyIndex];
+        if (mesh) {
+            mesh.geometry.dispose();
+            mesh.geometry = new THREE.SphereGeometry(newRadius, 16, 16);
+        }
     }
 
     randomizeBodyParameters() {
@@ -91,4 +94,4 @@ window.BodyEditor = class {
             });
         }
     }
-}
+};
