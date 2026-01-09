@@ -87,12 +87,19 @@ window.UIController = class {
         console.log("Bodies length:", this.bodies.length);
 
         // Aggiorna posizioni
-        for (let i = 0; i < state.length; i++) {
+       /* for (let i = 0; i < state.length; i++) {
             if (!this.bodies[i]) {
                 console.warn("⚠️ Body mesh missing at index", i);
                 continue;
             }
             this.bodies[i].position.set(state[i].r[0], state[i].r[1], state[i].r[2]);
+        }*/
+        
+        for (let i = 0; i < state.length; i++) {
+            console.log(`Body ${i} position:`, state[i].r);
+            if (this.bodies[i]) {
+                this.bodies[i].position.set(state[i].r[0], state[i].r[1], state[i].r[2]);
+            }
         }
 
         // Aggiorna traiettorie
