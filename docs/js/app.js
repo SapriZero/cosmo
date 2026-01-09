@@ -111,7 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 5. Inizializza simulazione
     engine.initSimulation('lagrange', 3);
-    controller.setupSceneForN(3);
+console.log("About to call setupSceneForN...");
+controller.setupSceneForN(3);
+console.log("setupSceneForN called.");
     controller.updateVisualization();
     controller.updateUI();
 
