@@ -3,11 +3,11 @@
 // Inizializza Three.js e restituisce oggetto con scena, renderer, ecc.
 function initThreeJS() {
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x111111); // sfondo grigio scuro uniforme
+    scene.background = new THREE.Color(0x111111);
 
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.set(0, 0, 5);
-    camera.lookAt(0, 0, 0); // ✅ Fondamentale!
+    camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
     const container = document.getElementById('canvas-container');
@@ -16,7 +16,6 @@ function initThreeJS() {
         return null;
     }
 
-    // Assicura altezza minima
     if (container.clientHeight === 0) {
         container.style.height = '600px';
     }
@@ -25,39 +24,16 @@ function initThreeJS() {
     container.appendChild(renderer.domElement);
 
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
-engine.initSimulation('lagrange', 3);
-controller.setupSceneForN(3);
-controller.updateVisualization(); // ← disegna subito i corpi
-controller.updateUI();
-
-// Renderizza il primo frame
-threejs.renderer.render(threejs.scene, threejs.camera);
-    
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
 
-    // Luce ambientale (riempie le ombre)
-const ambientLight = new THREE.AmbientLight(0x404040, 1.8);
-scene.add(ambientLight);
-
-// Luce direzionale (dà profondità)
-const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
-dirLight.position.set(5, 5, 5);
-scene.add(dirLight);
-
-// Luce puntiforme aggiuntiva (opzionale)
-const pointLight = new THREE.PointLight(0xffffff, 0.8, 50);
-pointLight.position.set(-5, -5, 5);
-scene.add(pointLight);
-
-    // 👁️‍🗨️ Sfera di prova (rimuovi questa se vedi i corpi!)
+    // Luci per rendering 3D efficace
+    const ambientLight = new THREE.AmbientLight(0x404040, 1.8);
+    scene.add(ambientLight);
     
-  /*  const testSphere = new THREE.Mesh(
-        new THREE.SphereGeometry(0.3, 16, 16),
-        new THREE.MeshPhongMaterial({ color: 0x00ff00 })
-    );
-    scene.add(testSphere); */
-
+    const mainLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    mainLight.position.set(3, 4, 5);
+    scene.add(mainLight);
 
     // Gestione resize
     function onWindowResize() {
@@ -68,8 +44,6 @@ scene.add(pointLight);
         renderer.setSize(width, height);
     }
     window.addEventListener('resize', onWindowResize);
-    // Alla fine di initThreeJS(), prima di return:
-renderer.render(scene, camera); // ← RENDER INIZIALE
 
     return { scene, renderer, camera, controls, bodies: [], trailMaterials: [] };
 }
@@ -114,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // 2. Inizializza Three.js
+    // 2. Inizializza Three.js (solo grafica, niente engine qui!)
     const threejs = initThreeJS();
     if (!threejs) {
         console.error("Three.js initialization failed.");
@@ -124,11 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Crea motore di simulazione
     const engine = new window.SimulationEngine();
 
-    // 4. Verifica e crea controller
-    if (typeof window.UIController === 'undefined') {
-        console.error("❌ UIController not loaded! Check script order and syntax.");
-        return;
-    }
+    // 4. Crea controller UI
     const controller = new window.UIController(engine, ui, threejs);
 
     // 5. Inizializza simulazione
@@ -137,15 +107,16 @@ document.addEventListener('DOMContentLoaded', () => {
     controller.updateVisualization();
     controller.updateUI();
 
-    // 6. Imposta valori UI iniziali
+    // 6. Renderizza la scena iniziale (corpi visibili all'avvio)
+    threejs.renderer.render(threejs.scene, threejs.camera);
+
+    // 7. Imposta valori UI
     ui.dtValue.textContent = engine.dt.toFixed(4);
     ui.nBodiesValue.textContent = engine.currentN.toString();
     ui.statusText.textContent = 'Paused';
 
-    // 7. Avvia controller
+    // 8. Avvia controller
     controller.setupEventListeners();
-    // Renderizza la scena iniziale (corpi fermi)
-threejs.renderer.render(threejs.scene, threejs.camera);
 
     console.log("✅ Simulator ready!");
 });
