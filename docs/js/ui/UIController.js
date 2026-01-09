@@ -1,4 +1,4 @@
-// ui/UIController.js
+6// ui/UIController.js
 
 window.UIController = class {
     constructor(engine, ui, threejsRenderer) {
@@ -55,12 +55,18 @@ window.UIController = class {
             if (mesh.geometry) mesh.geometry.dispose();
             scene.remove(mesh);
         });
-        
-        // Rimuovi tracce
-        for (let i = 0; i < 100; i++) {
-            const trail = scene.getObjectByName(`trail-${i}`);
-            if (trail) scene.remove(trail);
-        }
+
+        // Rimuovi TUTTE le tracce (linee) dalla scena
+const trailsToRemove = [];
+scene.traverse(child => {
+    if (child.isLine) {
+        trailsToRemove.push(child);
+    }
+});
+trailsToRemove.forEach(line => {
+    if (line.geometry) line.geometry.dispose();
+    scene.remove(line);
+});
 
         // Crea nuovi corpi
         const newBodies = [];
