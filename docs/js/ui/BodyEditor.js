@@ -23,30 +23,26 @@ window.BodyEditor = class {
         this.selectedBodyIndex = index;
     }
 
-    applyBodyParameters() {
-        const m = parseFloat(this.ui.massSlider.value);
-        const r = [
-            parseFloat(this.ui.posX.value || 0),
-            parseFloat(this.ui.posY.value || 0),
-            parseFloat(this.ui.posZ.value || 0)
-        ];
-        const v = [
-            parseFloat(this.ui.velX.value || 0),
-            parseFloat(this.ui.velY.value || 0),
-            parseFloat(this.ui.velZ.value || 0)
-        ];
+applyBodyParameters() {
+    const m = parseFloat(this.ui.massSlider.value);
+    const r = [
+        parseFloat(this.ui.posX.value || 0),
+        parseFloat(this.ui.posY.value || 0),
+        parseFloat(this.ui.posZ.value || 0)
+    ];
+    const v = [
+        parseFloat(this.ui.velX.value || 0),
+        parseFloat(this.ui.velY.value || 0),
+        parseFloat(this.ui.velZ.value || 0)
+    ];
 
-        // Aggiorna lo stato fisico
-        this.engine.updateBody(this.selectedBodyIndex, m, r, v);
+    this.engine.updateBody(this.selectedBodyIndex, m, r, v);
 
-        // ✅ AGGIORNA LA MESH THREE.JS CON NUOVO RAGGIO
-        const newRadius = window.UIUtils.getBodyRadius(m);
-        const mesh = this.renderer.bodies[this.selectedBodyIndex];
-        if (mesh) {
-            mesh.geometry.dispose();
-            mesh.geometry = new THREE.SphereGeometry(newRadius, 16, 16);
-        }
+    // ✅ Notifica il controller di aggiornare la mesh
+    if (typeof this.onBodyUpdated === 'function') {
+        this.onBodyUpdated(this.selectedBodyIndex, m);
     }
+}
 
     randomizeBodyParameters() {
         const angle = Math.random() * Math.PI * 2;
