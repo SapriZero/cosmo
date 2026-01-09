@@ -105,20 +105,18 @@
         </div>
     </div>
 
-<!-- Three.js (CDN, nessun percorso) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/throme.min.js"></script>
+<!-- 1. Three.js (obbligatorio per primo) -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
 
-<!-- File nella stessa cartella (js/) -->
+<!-- 2. I tuoi script (nella cartella js/, ma tu sei già in js/) -->
 <script src="physics.js"></script>
 <script src="simulation-engine.js"></script>
-<script src="app.js"></script>
-
-<!-- File nella sottocartella ui/ -->
 <script src="ui/UIUtils.js"></script>
 <script src="ui/GravitationalField.js"></script>
 <script src="ui/VideoRecorder.js"></script>
 <script src="ui/BodyEditor.js"></script>
 <script src="ui/UIController.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
