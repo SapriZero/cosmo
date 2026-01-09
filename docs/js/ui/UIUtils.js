@@ -2,8 +2,8 @@ window.UIUtils = {
 
     getBodyRadius(mass) {
         // Ridotto del ~50% rispetto al valore precedente
-        const radius = 0.03 + 0.06 * Math.pow(mass, 1/3);
-        return Math.max(0.03, radius); // minimo visibile ma piccolo
+        const radius = 0.025 + 0.05 * Math.pow(mass, 1/3); // più piccolo
+        return Math.max(0.025, radius);
     },
 
     generateColors(n) {
