@@ -1,6 +1,8 @@
 ---
+layout: default
 title: Buconero
 permalink: /buconero/
+author: Ettore Bevilacqua
 ---
 
 # Trattato sul Viaggio nel Buco Nero  
