@@ -5,8 +5,11 @@ Questo spazio ospita la ricerca sul **Codice Sorgente dell'Universo**, un approc
 
 ---
 
-## Introduzione al Modello URCT
+## Introduzione al Modello Relazionale
 Il modello qui presentato unifica le forze fondamentali attraverso il concetto di *Pressione della Singolarità*. Le proprietà della materia non sono costanti arbitrarie, ma variabili derivate da un "Micelio Logico" sottostante. Questo trattato non si limita a descrivere la realtà, ma fornisce gli strumenti per analizzare e "debuggare" le costanti fisiche fondamentali.
+
+
+
 
 ## Struttura del Progetto
 * **Sestine:** Analisi matematica e dimostrazione delle costanti adimensionali.
