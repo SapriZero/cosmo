@@ -77,6 +77,21 @@ function createUI() {
     return ui;
 }
 
+// Aggiungi questa funzione o modifica il menu esistente
+function aggiungiLinkUrcmk() {
+    const topBar = document.getElementById('top-bar');
+    if (topBar) {
+        const link = document.createElement('a');
+        link.href = 'urcmk-curve.html';
+        link.textContent = '🧪 URCMK Curve Lab';
+        link.style.cssText = 'color: #9f7aea; margin-left: 20px; text-decoration: none; font-weight: bold;';
+        topBar.appendChild(link);
+    }
+}
+
+// Chiama all'avvio
+document.addEventListener('DOMContentLoaded', aggiungiLinkUrcmk);
+
 // Entry point
 document.addEventListener('DOMContentLoaded', () => {
     console.log("🚀 Starting N-Body Simulator...");

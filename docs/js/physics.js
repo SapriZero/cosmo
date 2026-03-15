@@ -106,6 +106,24 @@ const leapfrogStep = compose(
     halfStepVelocityRelation
 );
 
+// In physics.js, dopo le funzioni esistenti
+function calcolaDeviazioneOrbitale(percorso, metodo = 'urcmk') {
+    const calculator = new UrcmkCalculator();
+    const punti = percorso.map(p => ({ x: p[0], y: p[1], z: p[2] }));
+    
+    switch(metodo) {
+        case 'classico':
+            // Mantieni calcolo esistente
+            return calcolaIntegraleEllittico(percorso);
+        case 'urcmk-veloce':
+            return calculator.calcolaMedia3(punti);
+        case 'urcmk-preciso':
+            return calculator.calcolaPreciso(punti, 0.23).valore;
+        default:
+            return calculator.calcolaPreciso(punti, 0.23).valore;
+    }
+}
+
 // --- CONFIGURAZIONI INIZIALI (dopo tutte le funzioni!) ---
 
 function createLagrangianState() {
