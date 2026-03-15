@@ -1,5 +1,3 @@
---$CHANGE===: docs/js/elissi/urcmk-visual.js
---$LINESUB===:1,170
 /**
  * @fileoverview Visualizzazione Three.js per URCMK con sistema definizioni
  * Dipende da: store/definitions.js, src/urcmk/calculator.js, src/urcmk/curves.js
@@ -20,18 +18,18 @@ class UrcmkVisualizer {
         if (!this.container) {
             throw new Error(`Container ${containerId} non trovato`);
         }
-        
+
         this.colorScheme = colorScheme;
         this.store = store;
         this.color = colorScheme === 'ideal' ? 0x63b3ed : 0x9f7aea;
         this.autoRotate = colorScheme === 'ideal';
-        
+
         // Inizializza Three.js
         this._initThree();
-        
+
         // Avvia animazione
         this.animate();
-        
+
         // Handle resize
         window.addEventListener('resize', () => this._onResize());
     }
@@ -79,7 +77,7 @@ class UrcmkVisualizer {
         this.scene.add(gridHelper);
 
         // Linea principale
-        this.lineMaterial = new THREE.LineBasicMaterial({ 
+        this.lineMaterial = new THREE.LineBasicMaterial({
             color: this.color,
             linewidth: 2
         });
@@ -88,8 +86,8 @@ class UrcmkVisualizer {
         this.scene.add(this.line);
 
         // Punti di controllo
-        this.pointsMaterial = new THREE.PointsMaterial({ 
-            color: 0xffaa00, 
+        this.pointsMaterial = new THREE.PointsMaterial({
+            color: 0xffaa00,
             size: 0.15,
             sizeAttenuation: true
         });
@@ -106,8 +104,8 @@ class UrcmkVisualizer {
         punti.forEach(p => {
             positions.push(p.x, p.y, p.z);
         });
-        
-        this.lineGeometry.setAttribute('position', 
+
+        this.lineGeometry.setAttribute('position',
             new THREE.Float32BufferAttribute(positions, 3));
         this.lineGeometry.setDrawRange(0, punti.length);
 
@@ -117,8 +115,8 @@ class UrcmkVisualizer {
         for (let i = 0; i < punti.length; i += step) {
             pointPositions.push(punti[i].x, punti[i].y, punti[i].z);
         }
-        
-        this.pointsGeometry.setAttribute('position', 
+
+        this.pointsGeometry.setAttribute('position',
             new THREE.Float32BufferAttribute(pointPositions, 3));
     }
 
@@ -131,7 +129,7 @@ class UrcmkVisualizer {
     _onResize() {
         const width = this.container.clientWidth;
         const height = this.container.clientHeight;
-        
+
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(width, height);
@@ -146,7 +144,7 @@ class UrcmkVisualizer {
 // Inizializzazione principale con definizioni
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🚀 Avvio URCMK con sistema definizioni');
-    
+
     // Crea store con stato iniziale
     const store = new Store({
         calc: {
@@ -180,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inizializza visualizzatori
     const visualIdeale = new UrcmkVisualizer('canvas-ideal', 'ideal', store);
     const visualUrcmk = new UrcmkVisualizer('canvas-approx', 'urcmk', store);
-    
+
     const calculator = new UrcmkCalculator();
 
     // Funzione di aggiornamento principale
@@ -206,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Calcola con metodo selezionato
         const start = performance.now();
-        
+
         const result = match(mode, {
             'ultrafast': () => calculator.rapporto2(punti),
             'fast': () => calculator.media3(punti),
@@ -224,13 +222,13 @@ document.addEventListener('DOMContentLoaded', () => {
             ok: (val) => {
                 const valore = typeof val === 'object' ? val.valore : val;
                 store.set(UI.data.urcmk.path, valore);
-                
+
                 const erroreAss = Math.abs(valore - teorico);
                 const erroreRel = (erroreAss / teorico * 100);
-                
+
                 store.set(UI.data.erroreAss.path, erroreAss);
                 store.set(UI.data.erroreRel.path, erroreRel);
-                
+
                 // Aggiorna k se disponibile
                 if (typeof val === 'object' && val.k) {
                     store.set(UI.data.kValue.path, val.k);
