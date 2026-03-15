@@ -8,7 +8,7 @@ import { Result } from '../core/result.js';
 import { match } from '../core/match.js';
 import { pipe } from '../core/fp.js';
 
-export class UrcmkCalculator {
+export class Calculator {
     constructor() {
         // Costanti
         this.PHI = 1.618033988749895;
@@ -225,14 +225,14 @@ export class UrcmkCalculator {
     // Versione funzionale (currying)
     static conDelta(delta) {
         return (punti) => {
-            const calc = new UrcmkCalculator();
+            const calc = new Calculator();
             return calc.prezioso(punti, delta);
         };
     }
 
     static conMetodo(mode) {
         return (punti, delta, segments) => {
-            const calc = new UrcmkCalculator();
+            const calc = new Calculator();
             return match(mode, {
                 'ultrafast': () => calc.rapporto2(punti),
                 'fast': () => calc.media3(punti),

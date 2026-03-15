@@ -1,5 +1,5 @@
 /**
- * @fileoverview Visualizzatore Three.js per URCMK
+ * @fileoverview Visualizzatore Three.js per 
  * Dipende da: store/definitions.js per i binding
  */
 
@@ -8,7 +8,7 @@ import { Result } from '../core/result.js';
 import { match } from '../core/match.js';
 import { UI } from '../../store/definitions.js';
 
-export class UrcmkVisualizer {
+export class Visualizer {
     constructor(containerId, colorScheme = 'ideal', store = null) {
         this.container = document.getElementById(containerId);
         if (!this.container) {

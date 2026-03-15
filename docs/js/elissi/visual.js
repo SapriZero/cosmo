@@ -3,14 +3,13 @@
  * Dipende da: store/definitions.js, src/urcmk/calculator.js, src/urcmk/curves.js
  */
 
-import { UI, U, Config } from '../store/definitions.js';
-import { UrcmkCalculator } from '../core/elisse/calculator.js';
-import { CurveGenerators } from '../core/elisse/curves.js';
-import { Store } from '../store/store.js';
-import { UIBinder } from '../ui/binder.js';
-import { Option } from '../lib/core/option.js';
-import { Result } from '../lib/core/result.js';
-import { match } from '../lib/core/match.js';
+// visual.js - Import corretti per la struttura attuale
+import { UI, U, Config, _F, _S } from './store/definitions.js';
+import { Calculator } from './core/calculator.js';        // senza 'Urcmk' nel nome
+import { Curves } from './core/curves.js';                // senza 'Generator'
+import { Store } from './store/store.js';
+import { Binder } from './ui/binder.js';                   // senza 'UI' nel nome
+import { Option, Result, match } from './lib/index.js';
 
 class UrcmkVisualizer {
     constructor(containerId, colorScheme = 'ideal', store = null) {

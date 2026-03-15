@@ -1,5 +1,5 @@
 /**
- * @fileoverview Generatori di curve per URCMK
+ * @fileoverview Generatori di curve per 
  * Produce punti in formato {x, y, z}
  */
 
