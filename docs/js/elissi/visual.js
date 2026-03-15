@@ -4,12 +4,12 @@
  */
 
 // visual.js - Import corretti per la struttura attuale
-import { UI, U, Config, _F, _S } from './store/definitions.js';
-import { Calculator } from './core/calculator.js';        // senza 'Urcmk' nel nome
-import { Curves } from './core/curves.js';                // senza 'Generator'
-import { Store } from './store/store.js';
-import { Binder } from './ui/binder.js';                   // senza 'UI' nel nome
-import { Option, Result, match } from './lib/index.js';
+import { UI, U, Config, _F, _S } from '../store/definitions.js';
+import { Calculator } from '../lib/elissi/calculator.js';        // senza 'Urcmk' nel nome
+import { Curves } from '../lib/elissi/curves.js';                // senza 'Generator'
+import { Store } from '../lib/store/store.js';
+import { Binder } from '../ui/binder.js';                   // senza 'UI' nel nome
+import { Option, Result, match } from '../lib/core/index.js';
 
 class UrcmkVisualizer {
     constructor(containerId, colorScheme = 'ideal', store = null) {

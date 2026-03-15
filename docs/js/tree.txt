@@ -4,6 +4,7 @@
 │   ├── curve.html
 │   ├── index.html
 │   ├── render.js
+│   ├── style.css
 │   ├── test.html
 │   └── visual.js
 ├── lib
@@ -14,7 +15,7 @@
 │   │   ├── option.js
 │   │   ├── path.js
 │   │   └── result.js
-│   ├── elisse
+│   ├── elissi
 │   │   ├── calculator.js
 │   │   ├── curves.js
 │   │   └── visualizer.js
@@ -41,4 +42,4 @@
 ├── tree.txt
 └── ui-controller.js
 
-7 directories, 35 files
+7 directories, 36 files
