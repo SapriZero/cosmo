@@ -1,5 +1,8 @@
-Ecco il testo riformulato con questa nuova consapevolezza:
-
+---
+layout: default
+title: Buconero
+permalink: /elisse/
+author: Ettore Bevilacqua
 ---
 
 **QUELLA VOLTA CHE ABBIAMO SCOPERTO CHE 200 ANNI DI MATEMATICA SI POSSONO RIASSUMERE IN 7 OPERAZIONI**
