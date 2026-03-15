@@ -11,6 +11,19 @@ import { Store } from '../lib/store/store.js';
 import { Binder } from '../ui/binder.js';                   // senza 'UI' nel nome
 import { Option, Result, match } from '../lib/core/index.js';
 
+// All'inizio del file, subito dopo gli import
+console.log('🚀 visual.js: inizio caricamento');
+
+window.addEventListener('error', (e) => {
+    console.error('🔥 ERRORE CATTURATO:', e.error || e.message);
+});
+
+try {
+    // Il resto del codice...
+} catch (e) {
+    console.error('❌ ERRORE IN visual.js:', e);
+}
+
 class UrcmkVisualizer {
     constructor(containerId, colorScheme = 'ideal', store = null) {
         this.container = document.getElementById(containerId);
@@ -256,92 +269,97 @@ document.addEventListener('DOMContentLoaded', () => {
         // Aggiorna tutti i binding
         binder.updateAll();
     }
+    
+    // === EVENT LISTENERS (da mettere dentro DOMContentLoaded) ===
 
-    // Event listeners con store updates
-    document.getElementById('curveType')?.addEventListener('change', (e) => {
-        store.set(UI.data.curveType.path, e.target.value);
-        aggiornaVisualizzazione();
-    });
-
-    document.getElementById('precisionMode')?.addEventListener('change', (e) => {
-        store.set('calc.mode', e.target.value);
-        aggiornaVisualizzazione();
-    });
-
-    document.getElementById('deltaSlider')?.addEventListener('input', (e) => {
-        const val = parseFloat(e.target.value);
-        store.set(UI.data.delta.path, val);
-        document.getElementById('deltaValue').textContent = val.toFixed(2);
-        aggiornaVisualizzazione();
-    });
-
-    document.getElementById('segmentSlider')?.addEventListener('input', (e) => {
-        const val = parseInt(e.target.value);
-        store.set(UI.data.segments.path, val);
-        document.getElementById('segmentValue').textContent = val;
-        aggiornaVisualizzazione();
-    });
-
-    // Mode buttons
-    document.getElementById('modeRendering')?.addEventListener('click', () => {
-        store.batch(() => {
-            store.set('calc.mode', _S.rendering.mode);
-            store.set(UI.data.delta.path, _S.rendering.delta);
-            store.set(UI.data.segments.path, _S.rendering.segments);
-        });
-        document.getElementById('precisionMode').value = _S.rendering.mode;
-        aggiornaVisualizzazione();
-    });
-
-    document.getElementById('modeTrading')?.addEventListener('click', () => {
-        store.batch(() => {
-            store.set('calc.mode', _S.trading.mode);
-            store.set(UI.data.delta.path, _S.trading.delta);
-            store.set(UI.data.segments.path, _S.trading.segments);
-        });
-        document.getElementById('precisionMode').value = _S.trading.mode;
-        aggiornaVisualizzazione();
-    });
-
-    document.getElementById('modePhysics')?.addEventListener('click', () => {
-        store.batch(() => {
-            store.set('calc.mode', _S.physics.mode);
-            store.set(UI.data.delta.path, _S.physics.delta);
-            store.set(UI.data.segments.path, _S.physics.segments);
-        });
-        document.getElementById('precisionMode').value = _S.physics.mode;
-        aggiornaVisualizzazione();
-    });
-
-    document.getElementById('modeScience')?.addEventListener('click', () => {
-        store.batch(() => {
-            store.set('calc.mode', _S.scientific.mode);
-            store.set(UI.data.delta.path, _S.scientific.delta);
-            store.set(UI.data.segments.path, _S.scientific.segments);
-        });
-        document.getElementById('precisionMode').value = _S.scientific.mode;
-        aggiornaVisualizzazione();
-    });
-
-    // Random button
-    document.getElementById('randomBtn')?.addEventListener('click', () => {
-        const tipi = _F.curve;
-        const randomTipo = tipi[Math.floor(Math.random() * tipi.length)];
-        store.set(UI.data.curveType.path, randomTipo);
-        document.getElementById('curveType').value = randomTipo;
-        aggiornaVisualizzazione();
-    });
-
-    // Compare button
-    document.getElementById('compareBtn')?.addEventListener('click', () => {
-        alert('Confronto: la curva ideale (sinistra) usa il calcolo integrale classico. La curva URCMK (destra) usa la nostra formula. La differenza visiva è minima, ma la velocità è 100x superiore.');
-    });
-
-    // Back button
-    document.getElementById('backBtn')?.addEventListener('click', () => {
-        window.location.href = '../index.html';
-    });
-
+		// Curve type
+		const curveType = document.getElementById('curveType');
+		if (curveType) {
+		    curveType.addEventListener('change', (e) => {
+		        console.log('Curva cambiata:', e.target.value);
+		        store.set('curve.type', e.target.value);
+		        aggiornaVisualizzazione();
+		    });
+		} else console.warn('curveType non trovato');
+		
+		// Precision mode
+		const precisionMode = document.getElementById('precisionMode');
+		if (precisionMode) {
+		    precisionMode.addEventListener('change', (e) => {
+		        console.log('Modo cambiato:', e.target.value);
+		        store.set('calc.mode', e.target.value);
+		        aggiornaVisualizzazione();
+		    });
+		} else console.warn('precisionMode non trovato');
+		
+		// Delta slider
+		const deltaSlider = document.getElementById('deltaSlider');
+		if (deltaSlider) {
+		    deltaSlider.addEventListener('input', (e) => {
+		        const val = parseFloat(e.target.value);
+		        document.getElementById('deltaValue').textContent = val.toFixed(2);
+		        store.set('calc.delta', val);
+		        aggiornaVisualizzazione();
+		    });
+		} else console.warn('deltaSlider non trovato');
+		
+		// Segment slider
+		const segmentSlider = document.getElementById('segmentSlider');
+		if (segmentSlider) {
+		    segmentSlider.addEventListener('input', (e) => {
+		        const val = parseInt(e.target.value);
+		        document.getElementById('segmentValue').textContent = val;
+		        store.set('calc.segments', val);
+		        aggiornaVisualizzazione();
+		    });
+		} else console.warn('segmentSlider non trovato');
+		
+		// Mode buttons
+		const modeRendering = document.getElementById('modeRendering');
+		if (modeRendering) {
+		    modeRendering.addEventListener('click', () => {
+		        store.batch?.(() => {
+		            store.set('calc.mode', 'ultrafast');
+		            store.set('calc.delta', 0);
+		            store.set('calc.segments', 4);
+		        }) || (() => {
+		            store.set('calc.mode', 'ultrafast');
+		            store.set('calc.delta', 0);
+		            store.set('calc.segments', 4);
+		        })();
+		        document.getElementById('precisionMode').value = 'ultrafast';
+		        aggiornaVisualizzazione();
+		    });
+		}
+		
+		// Random button
+		const randomBtn = document.getElementById('randomBtn');
+		if (randomBtn) {
+		    randomBtn.addEventListener('click', () => {
+		        const tipi = ['sine', 'circle', 'flag', 'helix', 'parabola', 'lissajous', 'random'];
+		        const randomTipo = tipi[Math.floor(Math.random() * tipi.length)];
+		        store.set('curve.type', randomTipo);
+		        document.getElementById('curveType').value = randomTipo;
+		        aggiornaVisualizzazione();
+		    });
+		}
+		
+		// Compare button
+		const compareBtn = document.getElementById('compareBtn');
+		if (compareBtn) {
+		    compareBtn.addEventListener('click', () => {
+		        alert('Confronto: errore ' + store.get('calc.error.rel', 0).toFixed(2) + '%');
+		    });
+		}
+		
+		// Back button
+		const backBtn = document.getElementById('backBtn');
+		if (backBtn) {
+		    backBtn.addEventListener('click', () => {
+		        window.location.href = '../index.html';
+		    });
+		}
+    
     // Sottoscrivi ai cambiamenti per debug
     store.subscribeWildcard(({ path, newValue }) => {
         if (path.includes('error') || path.includes('result')) {

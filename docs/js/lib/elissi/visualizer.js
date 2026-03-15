@@ -3,11 +3,11 @@
  * Dipende da: store/definitions.js per i binding
  */
 
-import { Calculator } from './lib/calculator.js';
-import { Curves } from './lib/curves.js';
-import { Store } from './store/store.js';
-import { Binder } from './ui/binder.js';
-import { Option, Result, match } from './lib/core/index.js';
+import { Calculator } from '../lib/elissi/calculator.js';
+import { Curves } from '../lib//elissi/curves.js';
+import { Store } from '../store/store.js';
+import { Binder } from '../ui/binder.js';
+import { Option, Result, match } from '../lib/core/index.js';
 
 export class Visualizer {
     constructor(containerId, colorScheme = 'ideal', store = null) {
