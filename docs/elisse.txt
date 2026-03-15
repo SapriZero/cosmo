@@ -1,7 +1,3 @@
-Ecco il testo **pronto per social** (copia e incolla):
-
----
-
 **QUELLA VOLTA CHE ABBIAMO SCOPERTO CHE 200 ANNI DI MATEMATICA SI POSSONO RIASSUMERE IN 7 OPERAZIONI**
 
 *(E che per k piccolo sei già alla precisione della fisica teorica)*
