@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test URCMK</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #0a0c14; color: white; }
+        #info { position: absolute; top: 10px; left: 10px; z-index: 100; }
+    </style>
+</head>
+<body>
+    <div id="info">Test Three.js - Se vedi un cubo, funziona</div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+    <script>
+        console.log('🎯 Test Three.js');
+        
+        // Scene
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0a0c14);
+        
+        // Camera
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(2, 2, 5);
+        camera.lookAt(0, 0, 0);
+        
+        // Renderer
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        
+        // Cubo
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshBasicMaterial({ color: 0x9f7aea });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+        
+        // Animazione
+        function animate() {
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+        
+        console.log('✅ Test completato');
+    </script>
+</body>
+</html>

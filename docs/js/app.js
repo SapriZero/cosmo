@@ -82,7 +82,7 @@ function aggiungiLinkUrcmk() {
     const topBar = document.getElementById('top-bar');
     if (topBar) {
         const link = document.createElement('a');
-        link.href = 'urcmk-curve.html';
+        link.href = '/elissi/';
         link.textContent = '🧪 URCMK Curve Lab';
         link.style.cssText = 'color: #9f7aea; margin-left: 20px; text-decoration: none; font-weight: bold;';
         topBar.appendChild(link);
