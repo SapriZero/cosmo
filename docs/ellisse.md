@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Buconero
-permalink: /buconero/
+title: Elissi
+permalink: /elisse/
 author: Ettore Bevilacqua
 ---
 
