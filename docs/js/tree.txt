@@ -1,4 +1,12 @@
 .
+├── core
+│   ├── calculator.js
+│   ├── fp.js
+│   ├── index.js
+│   ├── match.js
+│   ├── option.js
+│   ├── path.js
+│   └── result.js
 ├── elissi
 │   ├── core.js
 │   ├── curve.html
@@ -9,6 +17,7 @@
 │   └── visual.js
 ├── lib
 │   ├── core
+│   │   ├── calculator.js
 │   │   ├── fp.js
 │   │   ├── index.js
 │   │   ├── match.js
@@ -42,4 +51,4 @@
 ├── tree.txt
 └── ui-controller.js
 
-7 directories, 36 files
+8 directories, 44 files
