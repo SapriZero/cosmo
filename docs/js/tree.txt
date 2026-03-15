@@ -1,9 +1,11 @@
 .
 ├── elissi
 │   ├── core.js
+│   ├── curve.html
 │   ├── index.html
 │   ├── render.js
-│   └── test.html
+│   ├── test.html
+│   └── visual.js
 ├── lib
 │   ├── core
 │   │   ├── fp.js
@@ -12,6 +14,10 @@
 │   │   ├── option.js
 │   │   ├── path.js
 │   │   └── result.js
+│   ├── elisse
+│   │   ├── calculator.js
+│   │   ├── curves.js
+│   │   └── visualizer.js
 │   └── store
 │       ├── definitions.js
 │       └── store.js
@@ -35,4 +41,4 @@
 ├── tree.txt
 └── ui-controller.js
 
-6 directories, 30 files
+7 directories, 35 files
