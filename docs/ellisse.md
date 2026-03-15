@@ -1,5 +1,8 @@
-Ecco il testo aggiornato con i **calcoli concreti** che chiunque può verificare:
-
+---
+layout: default
+title: Buconero
+permalink: /buconero/
+author: Ettore Bevilacqua
 ---
 
 🚀 **MATEMATICA: LA FINE DEGLI INTEGRALI ELLITTICI?** 🚀
