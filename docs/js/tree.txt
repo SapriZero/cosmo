@@ -1,17 +1,31 @@
 .
 ├── elissi
 │   ├── core.js
-│   ├── curve.html
-│   └── render.js
+│   ├── index.html
+│   ├── render.js
+│   └── test.html
+├── lib
+│   ├── core
+│   │   ├── fp.js
+│   │   ├── index.js
+│   │   ├── match.js
+│   │   ├── option.js
+│   │   ├── path.js
+│   │   └── result.js
+│   └── store
+│       ├── definitions.js
+│       └── store.js
 ├── ui
 │   ├── BodyEditor.js
 │   ├── GravitationalField.js
 │   ├── UIController.js
 │   ├── UIUtils.js
 │   └── VideoRecorder.js
+├── all.txt
 ├── app.js
 ├── body3.js
 ├── index.html
+├── patch.js
 ├── physics.js
 ├── README.md
 ├── simulation-engine.js
@@ -21,4 +35,4 @@
 ├── tree.txt
 └── ui-controller.js
 
-3 directories, 19 files
+6 directories, 30 files
