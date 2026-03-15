@@ -161,4 +161,10 @@ A volte, "abbastanza buono" è meglio di "perfetto ma lento". E a volte, "abbast
 
 ---
 
+---
+
+**Approfondimenti e aggiornamenti:**
+🌐 https://saprizero.github.io/cosmo/elisse/
+📧 sapriqbit@gmail.com
+
 **#MatematicaApplicata #Ingegneria #Simulazioni #SezioneAurea #CalcoliVeloCi #Phi #Geometria #Precisione #Fisica #ScalaDiPlanck**
